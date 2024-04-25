@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -18,6 +19,7 @@ import java.util.concurrent.Executor;
 @MapperScan("top.zoowayss.springtx.mapper.**")
 @EnableTransactionManagement
 @SpringBootApplication
+@EnableScheduling
 public class SpringTXLauncher implements AsyncConfigurer {
 
     public static void main(String[] args) {

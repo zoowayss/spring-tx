@@ -25,3 +25,9 @@
    结果：
 
    ![image-20240424091141603](https://cdn.jsdelivr.net/gh/zooways/picgo/img/image-20240424091141603.png)
+
+   ## 定时任务事务问题
+
+   ![image-20240425185337160](https://cdn.jsdelivr.net/gh/zooways/picgo/img/image-20240425185337160.png)
+
+   结果： 能够正常回滚
