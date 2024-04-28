@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.zoowayss.springtx.entity.DemoEntity;
 import top.zoowayss.springtx.event.domain.DemoUpdatedEvent;
+import top.zoowayss.springtx.service.DoSomeThingHandler;
 import top.zoowayss.springtx.service.IDemoService;
 import top.zoowayss.springtx.utils.UUIDUtils;
+
+import java.util.List;
 
 /**
  * @Author: <a href="https://github.com/zoowayss">zoowayss</a>
@@ -25,6 +28,9 @@ public class DemoController {
 
     @Resource
     private IDemoService chargeOrderService;
+
+    @Resource
+    private List<DoSomeThingHandler> doSomeThingHandlers;
 
     /**
      * sql 文件里面创建的 id
@@ -70,5 +76,17 @@ public class DemoController {
         chargeOrderService.updateById(update);
         log.info("testTask update order success. updateStr: {}", updateStr);
         int i = 10 / 0;
+    }
+
+    /**
+     * 测试默认接口方法<p></p>
+     * curl -X GET "http://localhost:9999/test/default/interface"
+     */
+    @GetMapping("/test/default/interface")
+    public void testDefaultInterface() {
+        doSomeThingHandlers.forEach(DoSomeThingHandler::doSomeThing);
+
+        log.info("==================================================");
+        doSomeThingHandlers.forEach(DoSomeThingHandler::getSomeThing);
     }
 }
