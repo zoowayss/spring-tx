@@ -16,10 +16,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @TableName("t_demo")
 public class DemoEntity {
+    public DemoEntity(Long id, Integer status, String content) {
+        this.id = id;
+        this.status = status;
+        this.content = content;
+    }
 
     private Long id;
 
     private Integer status;
 
     private String content;
+
+    private String emails;
 }

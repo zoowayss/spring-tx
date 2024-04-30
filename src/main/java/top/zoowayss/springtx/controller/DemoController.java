@@ -13,6 +13,7 @@ import top.zoowayss.springtx.service.DoSomeThingHandler;
 import top.zoowayss.springtx.service.IDemoService;
 import top.zoowayss.springtx.utils.UUIDUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class DemoController {
     private ApplicationEventPublisher eventPublisher;
 
     @Resource
-    private IDemoService chargeOrderService;
+    private IDemoService demoService;
 
     @Resource
     private List<DoSomeThingHandler> doSomeThingHandlers;
@@ -52,13 +53,13 @@ public class DemoController {
         String cm = "testEvent@DemoController";
         String updateStr = UUIDUtils.randomUUID();
         DemoEntity update = new DemoEntity(DEFAULT_ID, 1, updateStr);
-        chargeOrderService.updateById(update);
+        demoService.updateById(update);
         Thread.sleep(3000L);
 
         log.info("{} update order success. data: {}", cm, update);
         eventPublisher.publishEvent(new DemoUpdatedEvent(this, "test1"));
 
-        DemoEntity current = chargeOrderService.getById(DEFAULT_ID);
+        DemoEntity current = demoService.getById(DEFAULT_ID);
         log.info("{} query order success. data: {}", cm, current);
         return "testEvent";
     }
@@ -73,7 +74,7 @@ public class DemoController {
         String updateStr = UUIDUtils.randomUUID();
         DemoEntity update = new DemoEntity(DEFAULT_ID, 1, updateStr);
 
-        chargeOrderService.updateById(update);
+        demoService.updateById(update);
         log.info("testTask update order success. updateStr: {}", updateStr);
         int i = 10 / 0;
     }
@@ -89,4 +90,18 @@ public class DemoController {
         log.info("==================================================");
         doSomeThingHandlers.forEach(DoSomeThingHandler::getSomeThing);
     }
+
+
+    /**
+     * 测试空字符串的 emails 属性<p></p>
+     * 结果：<p></>
+     * 会直接写入 '' 空字符串，而不是 null
+     * curl -X GET "http://localhost:9999/test/empty/emails"
+     */
+    @GetMapping("/test/empty/emails")
+    public void testEmptyEmails() {
+        DemoEntity save = new DemoEntity(null, 1, UUIDUtils.randomUUID(), String.join(",", Collections.emptyList()));
+        demoService.save(save);
+    }
+
 }
