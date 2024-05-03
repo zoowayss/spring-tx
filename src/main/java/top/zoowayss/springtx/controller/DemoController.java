@@ -69,7 +69,7 @@ public class DemoController {
      * 这是有事务管理的
      */
     @Transactional
-    @Scheduled(cron = "0/10 * * * * ?")
+//    @Scheduled(cron = "0/10 * * * * ?")
     public void testTask() {
         String updateStr = UUIDUtils.randomUUID();
         DemoEntity update = new DemoEntity(DEFAULT_ID, 1, updateStr);
