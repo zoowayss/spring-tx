@@ -1,6 +1,7 @@
 package top.zoowayss.springtx.controller;
 
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -102,6 +103,12 @@ public class DemoController {
     public void testEmptyEmails() {
         DemoEntity save = new DemoEntity(null, 1, UUIDUtils.randomUUID(), String.join(",", Collections.emptyList()));
         demoService.save(save);
+    }
+
+
+    @GetMapping("/test/url")
+    public String testQueryUrl(HttpServletRequest request) {
+        return request.getRequestURL() +"?"+ request.getQueryString();
     }
 
 }
