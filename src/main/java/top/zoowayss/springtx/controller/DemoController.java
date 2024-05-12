@@ -14,8 +14,10 @@ import top.zoowayss.springtx.service.DoSomeThingHandler;
 import top.zoowayss.springtx.service.IDemoService;
 import top.zoowayss.springtx.utils.UUIDUtils;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: <a href="https://github.com/zoowayss">zoowayss</a>
@@ -110,5 +112,6 @@ public class DemoController {
     public String testQueryUrl(HttpServletRequest request) {
         return request.getRequestURL() +"?"+ request.getQueryString();
     }
+
 
 }
