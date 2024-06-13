@@ -113,5 +113,4 @@ public class DemoController {
         return request.getRequestURL() +"?"+ request.getQueryString();
     }
 
-
 }
