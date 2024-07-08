@@ -4,20 +4,18 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.zoowayss.springtx.entity.DemoEntity;
 import top.zoowayss.springtx.event.domain.DemoUpdatedEvent;
+import top.zoowayss.springtx.event.domain.Some1Event;
 import top.zoowayss.springtx.service.DoSomeThingHandler;
 import top.zoowayss.springtx.service.IDemoService;
 import top.zoowayss.springtx.utils.UUIDUtils;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @Author: <a href="https://github.com/zoowayss">zoowayss</a>
@@ -27,6 +25,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DemoController {
 
+    /**
+     * sql 文件里面创建的 id
+     */
+    public static final long DEFAULT_ID = 1781245270718291969L;
+
     @Resource
     private ApplicationEventPublisher eventPublisher;
 
@@ -35,12 +38,6 @@ public class DemoController {
 
     @Resource
     private List<DoSomeThingHandler> doSomeThingHandlers;
-
-    /**
-     * sql 文件里面创建的 id
-     */
-    public static final long DEFAULT_ID = 1781245270718291969L;
-
 
     /**
      * 测试 事务状态下发布事件
@@ -110,7 +107,14 @@ public class DemoController {
 
     @GetMapping("/test/url")
     public String testQueryUrl(HttpServletRequest request) {
-        return request.getRequestURL() +"?"+ request.getQueryString();
+        return request.getRequestURL() + "?" + request.getQueryString();
+    }
+
+    @Transactional
+    @GetMapping("/some1Event")
+    public void some1Event() {
+        eventPublisher.publishEvent(new Some1Event(this));
+        int i = 10 / 0;
     }
 
 }
