@@ -8,7 +8,12 @@ spring:
     time-zone: GMT+8
 
   datasource:
-    url: jdbc:mysql://120.26.138.131:3326/test_db?useUnicode=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://minio.zoowayss.top/go-payment?useUnicode=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
     username: root
-    password: rootmima
+    password: f4N:1!GRbb]UtdGeP:rP
     driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: minio.zoowayss.top
+      port: 6379
+      password: qqq
